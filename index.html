@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta de Gamers • Preços Mais Baratos do Brasil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Animações */
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px #3b82f6,
+                         0 0 20px #3b82f6,
+                         0 0 40px #a855f7;
+        }
+
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .hero-bg {
+            background: linear-gradient(45deg, #0f172a, #1e3a8a, #312e81);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <!-- Navbar com seletor de temas -->
+    <nav class="bg-black/80 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="text-5xl">🎮</span>
+                <div>
+                    <h1 class="text-3xl font-black tracking-tighter neon-text">OFERTA DE GAMERS</h1>
+                    <p class="text-xs text-blue-400 -mt-1">Os preços mais baratos do Brasil</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Seletor de temas -->
+                <div class="flex gap-2">
+                    <button onclick="changeTheme('dark')" class="w-9 h-9 rounded-2xl bg-zinc-800 hover:bg-blue-600 transition flex items-center justify-center text-lg">🌑</button>
+                    <button onclick="changeTheme('light')" class="w-9 h-9 rounded-2xl bg-white text-black hover:bg-amber-300 transition flex items-center justify-center text-lg">☀️</button>
+                    <button onclick="changeTheme('neon')" class="w-9 h-9 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 hover:scale-110 transition flex items-center justify-center text-lg">🌈</button>
+                    <button onclick="changeTheme('ocean')" class="w-9 h-9 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-700 hover:scale-110 transition flex items-center justify-center text-lg">🌊</button>
+                </div>
+
+                <input id="searchInput" type="text" placeholder="Buscar produto..." 
+                       class="bg-zinc-900 border border-white/20 rounded-full px-6 py-3 w-96 focus:outline-none focus:border-blue-500 transition">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero animado -->
+    <header class="hero-bg h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#ffffff10_0%,transparent_70%)]"></div>
+        <div class="relative text-center px-6 z-10">
+            <h1 class="text-7xl md:text-8xl font-black tracking-tighter neon-text mb-4">ENCONTRE OS<br>MELHORES PREÇOS</h1>
+            <p class="text-3xl text-blue-300 mb-10">Compare em tempo real • 12x sem juros • Frete grátis</p>
+            <div class="flex justify-center gap-6 text-6xl">
+                <span class="float">🖱️</span>
+                <span class="float" style="animation-delay: 0.5s;">⌨️</span>
+                <span class="float" style="animation-delay: 1s;">🎧</span>
+                <span class="float" style="animation-delay: 1.5s;">🖥️</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Categorias -->
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="text-5xl font-bold text-center mb-12">Escolha sua categoria</h2>
+        <div id="categories" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+    </section>
+
+    <!-- Produtos -->
+    <section class="max-w-7xl mx-auto px-6 pb-24">
+        <h2 class="text-5xl font-bold text-center mb-4">Ofertas Imperdíveis</h2>
+        <p class="text-center text-zinc-400 mb-12">Clique em "Acessar Sites" para ver os preços mais baratos do Brasil</p>
+        
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-2xl font-bold mb-2">OFERTA DE GAMERS © 2026</p>
+            <p class="text-zinc-500">Comparador de preços em tempo real • Guilherme</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {id:1, nome:"Attack Shark X11", preco:139.90, cat:"mouse", imagens:["attack-shark-x11-1.jpg","attack-shark-x11-2.jpg","attack-shark-x11-3.jpg","attack-shark-x11-4.jpg","attack-shark-x11-5.jpg"]},
+            {id:2, nome:"Razer Viper V3 Pro", preco:599.90, cat:"mouse", imagens:["https://picsum.photos/id/101/600/400"]},
+            {id:3, nome:"Logitech G Pro X Superlight 2", preco:549.90, cat:"mouse", imagens:["https://picsum.photos/id/102/600/400"]},
+            {id:4, nome:"Razer DeathAdder V3 Pro", preco:499.90, cat:"mouse", imagens:["https://picsum.photos/id/103/600/400"]},
+            {id:5, nome:"Logitech G502 X Plus", preco:349.90, cat:"mouse", imagens:["https://picsum.photos/id/104/600/400"]},
+            {id:6, nome:"SteelSeries Aerox 9 Wireless", preco:399.90, cat:"mouse", imagens:["https://picsum.photos/id/105/600/400"]},
+            {id:7, nome:"Razer BlackWidow V4 Pro", preco:799.90, cat:"teclado", imagens:["https://picsum.photos/id/201/600/400"]},
+            {id:8, nome:"Asus ROG Strix Scope II", preco:899.90, cat:"teclado", imagens:["https://picsum.photos/id/202/600/400"]},
+            {id:9, nome:"SteelSeries Apex Pro Mini", preco:699.90, cat:"teclado", imagens:["https://picsum.photos/id/203/600/400"]},
+            {id:10, nome:"Keychron Q1 HE", preco:649.90, cat:"teclado", imagens:["https://picsum.photos/id/204/600/400"]},
+            {id:11, nome:"SteelSeries Arctis Nova Pro Wireless", preco:899.90, cat:"headset", imagens:["https://picsum.photos/id/301/600/400"]},
+            {id:12, nome:"HyperX Cloud Alpha Wireless", preco:349.90, cat:"headset", imagens:["https://picsum.photos/id/302/600/400"]},
+            {id:13, nome:"Logitech G Pro X 2 Lightspeed", preco:599.90, cat:"headset", imagens:["https://picsum.photos/id/303/600/400"]},
+            {id:14, nome:"MSI MPG 321URX QD-OLED", preco:2499.90, cat:"monitor", imagens:["https://picsum.photos/id/401/600/400"]},
+            {id:15, nome:"Samsung Odyssey G9 OLED", preco:3999.90, cat:"monitor", imagens:["https://picsum.photos/id/402/600/400"]},
+            {id:16, nome:"LG UltraGear 27GR95QE", preco:1899.90, cat:"monitor", imagens:["https://picsum.photos/id/403/600/400"]},
+            {id:17, nome:"MSI RTX 5090 Gaming Trio", preco:12999.90, cat:"gpu", imagens:["https://picsum.photos/id/501/600/400"]},
+            {id:18, nome:"RTX 5080 Founders Edition", preco:7999.90, cat:"gpu", imagens:["https://picsum.photos/id/502/600/400"]},
+            {id:19, nome:"AMD RX 7900 XTX", preco:6999.90, cat:"gpu", imagens:["https://picsum.photos/id/503/600/400"]},
+            {id:20, nome:"Corsair Vengeance RGB 32GB DDR5", preco:899.90, cat:"ram", imagens:["https://picsum.photos/id/601/600/400"]},
+            {id:21, nome:"Kingston Fury Beast 64GB", preco:1499.90, cat:"ram", imagens:["https://picsum.photos/id/602/600/400"]},
+            {id:22, nome:"Lian Li Lancool 216 RGB", preco:699.90, cat:"case", imagens:["https://picsum.photos/id/701/600/400"]},
+            {id:23, nome:"NZXT H7 Flow", preco:799.90, cat:"case", imagens:["https://picsum.photos/id/702/600/400"]},
+        ]
+
+        // Mudar tema
+        function changeTheme(theme) {
+            document.documentElement.classList.remove('light', 'neon', 'ocean')
+            if (theme === 'light') document.documentElement.classList.add('light')
+            else if (theme === 'neon') document.documentElement.classList.add('neon')
+            else if (theme === 'ocean') document.documentElement.classList.add('ocean')
+        }
+
+        // Abrir busca de preços mais baratos
+        function verPrecos(nome) {
+            const query = encodeURIComponent(nome + " preço mais barato brasil");
+            const url = `https://shopping.google.com/search?q=${query}&hl=pt-BR&gl=BR`;
+            window.open(url, '_blank');
+        }
+
+        // Renderizar produtos
+        function renderProducts(filtered) {
+            const grid = document.getElementById('products-grid')
+            grid.innerHTML = ''
+            
+            filtered.forEach(p => {
+                const parcelas = (p.preco / 12).toFixed(2)
+                grid.innerHTML += `
+                    <div class="product-card bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden">
+                        <img src="${p.imagens[0]}" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl min-h-[56px]">${p.nome}</h3>
+                            <div class="mt-4">
+                                <p class="text-4xl font-black text-blue-500">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>
+                                <p class="text-sm text-green-400">12x de R$ ${parcelas} sem juros</p>
+                            </div>
+                            <button onclick="verPrecos('${p.nome}')" 
+                                    class="mt-6 w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-5 rounded-2xl text-xl font-semibold transition">
+                                🔍 Acessar Sites e Ofertas
+                            </button>
+                        </div>
+                    </div>
+                `
+            })
+        }
+
+        // Filtro por categoria
+        function filterCategory(cat) {
+            const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat)
+            renderProducts(filtered)
+        }
+
+        // Busca
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase()
+            const filtered = products.filter(p => p.nome.toLowerCase().includes(term))
+            renderProducts(filtered)
+        })
+
+        // Categorias
+        const cats = [
+            {id:'all', nome:'Todos', emoji:'🌐'},
+            {id:'mouse', nome:'Mouses', emoji:'🖱️'},
+            {id:'teclado', nome:'Teclados', emoji:'⌨️'},
+            {id:'headset', nome:'Headsets', emoji:'🎧'},
+            {id:'monitor', nome:'Monitores', emoji:'🖥️'},
+            {id:'gpu', nome:'Placas de Vídeo', emoji:'📟'},
+            {id:'ram', nome:'Memórias', emoji:'💾'},
+            {id:'case', nome:'Gabinetes', emoji:'🖥️'}
+        ]
+
+        document.getElementById('categories').innerHTML = cats.map(c => `
+            <div onclick="filterCategory('${c.id}')" 
+                 class="bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-3xl p-8 text-center cursor-pointer transition hover:scale-105">
+                <div class="text-6xl mb-4">${c.emoji}</div>
+                <h3 class="font-semibold text-lg">${c.nome}</h3>
+            </div>
+        `).join('')
+
+        // Inicia
+        renderProducts(products)
+    </script>
+</body>
+</html>
